@@ -1,21 +1,23 @@
 const express = require("express");
-const app = express();
-const server = express();
+
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv/config");
+const server = express();
+
 //middleware
-app.use(cors());
-app.use(bodyParser.json());
+server.use(cors());
+server.use(bodyParser.json());
 
 //import Routes
 const postRoute = require("./routes/posts");
 
-app.use("/posts", postRoute);
+
+server.use("/posts", postRoute);
 
 //Routes
-app.get("/", (req, res) => {
+server.get("/", (req, res) => {
   res.send("we are on the app");
 });
 
@@ -28,10 +30,11 @@ mongoose.connect(
   }
 );
 
-// listening
+const PORT= process.env.PORT || 3301;
 
-
-const PORT = process.env.PORT || 3301;
 server.listen(PORT, () => {
   console.log(`\n=== Server listening on port ${PORT} ===\n`);
 });
+
+
+
